@@ -15,8 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    application: Application,
-    private val signInRepository: SignInRepository
+    application: Application
 ) : AndroidViewModel(application){
 
     private val _email= MutableStateFlow("")
@@ -35,7 +34,7 @@ class SignInViewModel @Inject constructor(
         updateIsSignedIn: (Boolean)->Unit
     ){
         viewModelScope.launch(Dispatchers.IO){
-            val result=signInRepository.getSignInResult(_email.value, _password.value)
+            val result=1
             if(result!=null){//로그인 성공
                 updateIsSignedIn(true)
             } else{//로그인 실패
