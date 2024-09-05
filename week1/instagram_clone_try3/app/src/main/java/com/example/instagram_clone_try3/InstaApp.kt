@@ -29,9 +29,12 @@ fun InstaApp(
         composable(Constants.ROUTE_SIGN_IN){
             SignInScreen(updateIsSignedIn = {
                 viewModel.updateIsSignedIn(it)
-                navController.popBackStack()
-                navController.navigate(Constants.ROUTE_INTRO)
+                navController.navigate(Constants.ROUTE_HOME)
             })
+        }
+
+        composable(Constants.ROUTE_HOME){
+            HomeScreen(name = "Hello World!")
         }
     }
 }

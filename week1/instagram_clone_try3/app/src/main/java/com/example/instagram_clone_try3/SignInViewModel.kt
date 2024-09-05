@@ -35,9 +35,11 @@ class SignInViewModel @Inject constructor(
         updateIsSignedIn: (Boolean)->Unit
     ){
         viewModelScope.launch(Dispatchers.IO){
-            val result=1
+            val result=1//강제 로그인 성공을 위함
             if(result!=null){//로그인 성공
-                updateIsSignedIn(true)
+                withContext(Dispatchers.Main) {
+                    updateIsSignedIn(true)
+                }
             } else{//로그인 실패
                 withContext(Dispatchers.Main) {//메인 디스패처(스레드 오케스트레이터)의 스레드를 이용, 임시 컨텍스트 스위칭 진행
                     Toast.makeText(getApplication(), "아이디와 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
