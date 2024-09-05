@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -82,7 +83,8 @@ fun SignInScreen(
                     signInViewModel.updateEmail(newText)
                 },
                 textStyle = TextStyle(
-                    fontSize = 30.sp
+                    fontSize = 30.sp,
+                    color = Color.White
                 ),
                 decorationBox = { innerTextField ->
                     Box(
@@ -126,7 +128,8 @@ fun SignInScreen(
                 },
                 visualTransformation = PasswordVisualTransformation(),
                 textStyle=TextStyle(
-                    fontSize=30.sp
+                    fontSize=30.sp,
+                    color = Color.White
                 ),
                 decorationBox = { innerTextField ->
                     Box(
@@ -173,6 +176,9 @@ fun SignInScreen(
                     text="Forgot password?",
                     modifier=Modifier.align(Alignment.CenterEnd),
                     color = Color(0xffffffff),
+                    style= TextStyle(
+                        textDecoration = TextDecoration.Underline
+                    )
                 )
             }
 
@@ -249,14 +255,22 @@ fun SignInScreen(
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Sign Up",
-                    color = Color.White,
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+
+                Box(
+                    modifier = Modifier
+                        .clickable {
+                            // 로그인 버튼 클릭 시 동작
+                        },
+                ) {
+                    Text(
+                        text = "Sign Up",
+                        color = Color.White,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     )
-                )
+                }
             }
         }
     }
