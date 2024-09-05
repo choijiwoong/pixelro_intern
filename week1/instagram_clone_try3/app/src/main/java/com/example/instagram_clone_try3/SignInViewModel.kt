@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.instagram_clone_try3.data.SignInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    application: Application
+    application: Application,
 ) : AndroidViewModel(application){
 
     private val _email= MutableStateFlow("")
@@ -42,6 +43,24 @@ class SignInViewModel @Inject constructor(
                     Toast.makeText(getApplication(), "아이디와 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    fun checkIsTextFilled(): Boolean{
+        if(_email.value == ""){
+            Toast.makeText(getApplication(), "이메일을 입력해주세요", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(_password.value == ""){
+            Toast.makeText(getApplication(), "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    fun signOut(){
+        viewModelScope.launch {
+
         }
     }
 }

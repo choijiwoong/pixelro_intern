@@ -43,6 +43,7 @@ import com.example.instagram_clone_try3.data.StringProvider
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SignInScreen(
+    updateIsSignedIn: (Boolean) -> Unit,
     signInViewModel: SignInViewModel= hiltViewModel()
 ){
     val email=signInViewModel.email.collectAsState().value
@@ -192,7 +193,11 @@ fun SignInScreen(
                     .clip(RoundedCornerShape(8.dp))
                     .background(color = Color(0xff3399ff), shape = RoundedCornerShape(8.dp))
                     .clickable {
-                        // 로그인 버튼 클릭 시 동작
+                        if (!signInViewModel.checkIsTextFilled())
+                            return@clickable
+                        signInViewModel.signIn(
+                            updateIsSignedIn = updateIsSignedIn
+                        )
                     },
                 contentAlignment = Alignment.Center
             ) {
@@ -211,7 +216,6 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                    // 페북 로그인 버튼 클릭 시 동작
                     },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Absolute.Center
