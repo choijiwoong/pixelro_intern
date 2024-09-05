@@ -42,11 +42,13 @@ fun HomeScreen(name: String){
     val coroutineScope = rememberCoroutineScope()//코루틴을 사용하기 위한 범위 생성
 
     Scaffold(
-        topBar = { Toolbar() }) {
+        topBar = { Toolbar() }) { innerPadding ->
         val posts by PostsRepository.posts
         val stories by StoriesRepository.observeStories()
 
-        LazyColumn {//지연하여 가져오는(통째로x) 열들
+        LazyColumn (
+            contentPadding = innerPadding
+        ){//지연하여 가져오는(통째로x) 열들
             item {//항목으로는 
                 StoriesSection(stories)//스토리 영역과
                 Divider()//구분영역을 가진다
