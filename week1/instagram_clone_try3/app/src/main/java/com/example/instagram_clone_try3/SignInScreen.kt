@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -51,19 +52,31 @@ fun SignInScreen(
             modifier = Modifier
                 .background(Color.Black)
                 .fillMaxSize()
-                .background(color = Color.Black),
+                .background(color = Color.Black)
+                .padding(36.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                modifier = Modifier
-                    .width(200.dp)
-                    .height(50.dp),
-                painter = painterResource(id = R.drawable.ic_instagram_logo_2),
-                contentDescription = ""
-            )
+            Spacer(modifier = Modifier.height(100.dp))
 
-            //아이디 입력
+            Box(
+                modifier=Modifier
+                    .padding(24.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ){
+                Image(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(50.dp),
+                    painter = painterResource(id = R.drawable.ic_instagram_logo_2),
+                    contentDescription = "",
+                    )
+            }
+
+            //이메일 입력
             BasicTextField(
-                modifier = Modifier.width(500.dp),
+                modifier = Modifier.fillMaxWidth(),
                 value = email,
                 onValueChange = { newText ->//입력값이 변경될 때 마다 VM의 email값을 업데이트 한다.
                     signInViewModel.updateEmail(newText)
@@ -74,7 +87,7 @@ fun SignInScreen(
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier
-                            .width(500.dp)
+                            .fillMaxWidth()
                             .height(60.dp)
                             .border(
                                 border = BorderStroke(
@@ -106,6 +119,7 @@ fun SignInScreen(
 
             //비밀번호
             BasicTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value=password,
                 onValueChange={ newText->
                     signInViewModel.updatePassword(newText)
@@ -117,7 +131,7 @@ fun SignInScreen(
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier
-                            .width(500.dp)
+                            .fillMaxWidth()
                             .height(60.dp)
                             .border(
                                 border = BorderStroke(
@@ -145,7 +159,7 @@ fun SignInScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             //비밀번호 잊었니 글자
             Box(
@@ -162,7 +176,7 @@ fun SignInScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             // 로그인 버튼
             Box(
@@ -170,7 +184,7 @@ fun SignInScreen(
                     .fillMaxWidth()
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = Color(0xff1d71e1), shape = RoundedCornerShape(8.dp))
+                    .background(color = Color(0xff3399ff), shape = RoundedCornerShape(8.dp))
                     .clickable {
                         // 로그인 버튼 클릭 시 동작
                     },
@@ -184,44 +198,51 @@ fun SignInScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             // 페북 로그인 글자
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        // 페북 로그인 버튼 클릭 시 동작
+                    // 페북 로그인 버튼 클릭 시 동작
                     },
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Absolute.Center
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_facebook),
                     contentDescription = null,
                     modifier = Modifier.size(40.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(20.dp))
                 Text(
                     text = "Log in with Facebook",
-                    color = Color.White
+                    color = Color(0xff1e90ff),
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+
+            Spacer(modifier = Modifier.height(30.dp))
+
 
             //or 구분 글자
             Text(
                 text = "OR",
-                color = Color.White
+                color = Color.White,
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             //회원가입 글자
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "Don't have an account?",
@@ -232,16 +253,11 @@ fun SignInScreen(
                     text = "Sign Up",
                     color = Color.White,
                     style = TextStyle(
-                        fontSize=24.sp,
-                        fontWeight= FontWeight.Bold
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 )
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-
-            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
