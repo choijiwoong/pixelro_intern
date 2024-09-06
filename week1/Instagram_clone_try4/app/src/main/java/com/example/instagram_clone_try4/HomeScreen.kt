@@ -14,7 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.example.instagram_clone_try4.common.icon
 import com.example.instagram_clone_try4.data.Post
 import com.example.instagram_clone_try4.data.PostsRepository
 import com.example.instagram_clone_try4.data.StoriesRepository
@@ -49,9 +50,9 @@ fun HomeScreen(name: String){
         LazyColumn (
             contentPadding = innerPadding
         ){//지연하여 가져오는(통째로x) 열들
-            item {//항목으로는 
+            item {//항목으로는
                 StoriesSection(stories)//스토리 영역과
-                Divider()//구분영역을 가진다
+                HorizontalDivider()//구분영역을 가진다
             }
             itemsIndexed(posts) { _, post ->//다음 항목으론 Post가 있는데 각 포스트별로
                 Post(post,//화면에 표시하며
@@ -72,7 +73,7 @@ fun HomeScreen(name: String){
 }
 
 @Composable
-private fun Toolbar() {//맨 상단에 인스타 아이콘과 디엠이 있을 툴바
+private fun Toolbar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -86,13 +87,13 @@ private fun Toolbar() {//맨 상단에 인스타 아이콘과 디엠이 있을 �
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                ImageVector.vectorResource(id = R.drawable.ic_instagram),//상단에 인스타그램 아이콘부터 박고
+                ImageVector.vectorResource(id = R.drawable.ic_instagram),
                 contentDescription = ""
             )
         }
         Icon(
-            ImageBitmap.imageResource(id = R.drawable.ic_dm),//디엠 사진도 박는다
-            modifier = Modifier,
+            ImageBitmap.imageResource(id = R.drawable.ic_dm),
+            modifier = Modifier.icon(),
             contentDescription = ""
         )
     }
@@ -121,7 +122,7 @@ private fun StoriesList(stories: List<Story>) {//스토리들을 가지런히 �
             ) {
                 StoryImage(imageUrl = story.image)//별도 디자인 처리된 스토리 이미지를 통해 디자인
                 Spacer(modifier = Modifier.height(5.dp))//패딩
-                Text(story.name, style = androidx.compose.material3.MaterialTheme.typography.labelSmall)//androidx.compose.material.MaterialTheme.typography.caption)
+                Text(story.name, style = MaterialTheme.typography.labelSmall)//androidx.compose.material.MaterialTheme.typography.caption)
                 //닉네임 출력
             }
 

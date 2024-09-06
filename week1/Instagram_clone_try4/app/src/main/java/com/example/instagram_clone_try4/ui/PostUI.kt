@@ -1,5 +1,6 @@
 package com.example.instagram_clone_try4.ui
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,7 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.instagram_clone_try4.R
 import com.example.instagram_clone_try4.common.component.AnimLikeButton
@@ -89,7 +91,7 @@ private fun PostHeader(post: Post) {
                     .clip(CircleShape)
             ) {
                 Image(//프로필 이미지 그리기
-                    painter = rememberImagePainter(post.user.image),
+                    painter = rememberAsyncImagePainter(post.user.image),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -151,12 +153,12 @@ private fun PostFooterTextSection(post: Post) {
             bottom = verticalPadding
         )
     ) {
-        androidx.compose.material3.Text(
+        Text(
             "${post.likesCount} likes",
             style = MaterialTheme.typography.titleMedium
         )
 
-        androidx.compose.material3.Text(
+        Text(
             "View all ${post.commentsCount} comments",
             style = MaterialTheme.typography.labelSmall
         )
@@ -164,12 +166,17 @@ private fun PostFooterTextSection(post: Post) {
         Spacer(modifier = Modifier.height(2.dp))
 
         Text(
-            post.timeStamp.getTimeElapsedText(),
+            post.timeStamp.getTimeElapsedText(),//확장 함수로 timestamp의 타입인 Long에서 호출
             style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp)
         )
     }
 }
 
-private fun Long.getTimeElapsedText(): String{
-    return "ji"
+private fun Long.getTimeElapsedText(): String{//포스트를 올린 시간과 현재 시간을 비교하여 몇분전에 올린 게시글인지 출력
+    val now=System.currentTimeMillis()
+    val time=this
+
+    return DateUtils.getRelativeTimeSpanString(
+        time, now, 0L, DateUtils.FORMAT_ABBREV_TIME
+    ).toString()
 }
